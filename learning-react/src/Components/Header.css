@@ -1,0 +1,24 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2b2e4a;
+  color: white;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}

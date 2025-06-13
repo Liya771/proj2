@@ -1,0 +1,15 @@
+.home-container {
+  text-align: center;
+  padding: 100px;
+}
+
+.signin-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-top: 20px;
+  background-color: #6200ee;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
