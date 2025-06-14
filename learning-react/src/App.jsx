@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import AuthPage from "./Components/Auth";
 import Home from "./Components/Home";
 import Dashboard from "./Components/Dashboard";
+import UploadProduct from "./Components/UploadProduct";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/upload" element={<UploadProduct />} />
       </Routes>
     </>
   );

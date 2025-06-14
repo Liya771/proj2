@@ -31,6 +31,8 @@ router.post("/signup", async (req, res) => {
 });
 
 // POST /api/auth/login
+const jwt = require("jsonwebtoken");
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -44,8 +46,17 @@ router.post("/login", async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: "Invalid credentials" });
 
+    // ✅ Generate token
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // ✅ Return token to client
     res.status(200).json({
       message: "Login successful",
+      token, // 👈 return this
       user: { id: user.id, name: user.name, email: user.email },
     });
   } catch (err) {
@@ -53,5 +64,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 module.exports = router;

@@ -12,32 +12,50 @@ const AuthPage = () => {
   const toggleForm = () => setIsSignUp(!isSignUp);
 
   const handleSignup = async () => {
-    const res = await fetch("http://localhost:5000/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log("Signup successful:", data);
-      navigate("/dashboard");
-    } else {
-      alert(data.error);
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        // 👇 Store token
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user)); // optional
+        console.log("Signup successful:", data);
+        navigate("/dashboard");
+      } else {
+        alert(data.error || "Signup failed");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Signup failed");
     }
   };
 
   const handleLogin = async () => {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log("Login successful:", data);
-      navigate("/dashboard");
-    } else {
-      alert(data.error);
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        // 👇 Store token
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user)); // optional
+        console.log("Login successful:", data);
+        navigate("/dashboard");
+      } else {
+        alert(data.error || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Login failed");
     }
   };
 
