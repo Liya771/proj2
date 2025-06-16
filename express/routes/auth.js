@@ -20,8 +20,16 @@ router.post("/signup", async (req, res) => {
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hash });
 
+    // ✅ Generate token after signup
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
     res.status(201).json({
       message: "User created",
+      token, // ✅ Send token to frontend
       user: { id: user.id, name: user.name, email: user.email },
     });
   } catch (err) {
@@ -29,6 +37,7 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Something went wrong" });
   }
 });
+
 
 // POST /api/auth/login
 const jwt = require("jsonwebtoken");
